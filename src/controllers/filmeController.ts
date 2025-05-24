@@ -16,6 +16,11 @@ export const getFilmesController = async (req: Request, res: Response) => {
 export const createFilmeController = async (req: Request, res: Response) => {
   try {
     const { nome, nota, ano, foto } = req.body;
+    // Validar se a foto é uma string Base64 válida
+    if (foto && !foto.startsWith('data:image/')) {
+      return res.status(400).json({ error: "Formato de imagem inválido" });
+    }
+    
     const result = await pool.query(
       'INSERT INTO filmes (nome, nota, ano, foto) VALUES ($1, $2, $3, $4) RETURNING *',
       [nome, nota, ano, foto]
