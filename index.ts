@@ -7,7 +7,7 @@ import pool from './src/config/database';
 
 // Create an Express application
 const app = express()
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 8080
 
 // Middleware
 app.use(cors());
