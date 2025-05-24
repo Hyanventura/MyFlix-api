@@ -1,11 +1,13 @@
 import { Pool } from 'pg';
 
+// Pega a URL completa do Railway
+const connectionString = process.env.DATABASE_PUBLIC_URL || process.env.DATABASE_URL;
+
 const pool = new Pool({
-  user: process.env.DB_USER || 'postgres',
-  host: process.env.DB_HOST || 'localhost',
-  database: process.env.DB_NAME || 'myflix',
-  password: process.env.DB_PASSWORD || 'postgres',
-  port: parseInt(process.env.DB_PORT || '5432'),
+  connectionString: connectionString,
+  ssl: {
+    rejectUnauthorized: false // Necessário para Railway
+  }
 });
 
 export default pool;

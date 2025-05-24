@@ -2,6 +2,7 @@ import 'dotenv/config';
 import express from "express"
 import { filmeRouter } from "./src/interface/routes/filmeRoutes"
 import cors from "cors"
+import pool from './src/config/database';
 
 
 // Create an Express application
@@ -27,6 +28,8 @@ app.get("/health", (req, res) => {
 // Start the server
 const startServer = async () => {
   try {
+    await pool.connect()
+     console.log('Database connected!');
     // Start listening for requests
     app.listen(port, () => {
       console.log(`Server running on port ${port}`)
